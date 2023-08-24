@@ -4,6 +4,8 @@ require('dotenv').config();
 
 const {connection} = require('./database/db');  //Imported DB connection
 const userRoute = require('./routes/user.route');   //Imported routes
+const blogRoute = require('./routes/blog.route');
+const {auth} = require('./middlewares/auth.middleware');
 
 const app = express();  //Created Express App
 
@@ -15,6 +17,8 @@ app.use(cors());
 // });
 
 app.use('/',userRoute);
+app.use(auth);
+app.use('/',blogRoute);
 
 //Establishing Atlas DB connection
 const port = process.env.PORT;
